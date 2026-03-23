@@ -3,7 +3,7 @@ import { Product } from "./Product";
 export class PhysicalProduct extends Product {
   private _weight: number;
 
-  constructor(sku: string, name: string, price: number, weight: number) {
+  public constructor(sku: string, name: string, price: number, weight: number) {
     super(sku, name, price);
     this._weight = weight;
   }
