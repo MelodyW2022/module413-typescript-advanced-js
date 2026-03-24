@@ -13,6 +13,6 @@ export function handleError(error: unknown): void {
   } else if (error instanceof Error) {
     console.error(`[Error]: ${error.message}`);
   } else {
-    console.error(`[Unknown Error]: ${error}`);
+    console.error("[Unknown Error]: ", error);
   }
 }
