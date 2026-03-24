@@ -13,6 +13,11 @@ npx tsc
 node dist/main.js
 ```
 
+## Sample Output
+
+![Program Output1](./assets/output1.png)
+![Program Output2](./assets/output2.png)
+
 ## Reflection
 
 See reflection.md
