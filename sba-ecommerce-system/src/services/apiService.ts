@@ -9,14 +9,14 @@ export type ProductFromAPI = {
 export async function fetchProducts(): Promise<ProductFromAPI[]> {
   try {
     // 1. Fetch data from DummyJSON API
-    const response = await fetch("https://dummyjson.com/products");
+    const response: Response = await fetch("https://dummyjson.com/products");
     if (!response.ok) {
       throw new AppError(
         `HTTP error: ${response.status} ${response.statusText}`,
       );
     }
     // 2. Convert response to JSON
-    const data = await response.json();
+    const data: { products: ProductFromAPI[] } = await response.json();
     // 3. Return the products array (data.products)
     return data.products;
   } catch (error) {
