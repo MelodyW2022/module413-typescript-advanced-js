@@ -11,11 +11,8 @@ export class DigitalProduct extends Product {
     this._fileSize = fileSize;
   }
 
-    public displayDetails(): string {
-    return [
-      super.displayDetails(),
-      `File Size: ${this.fileSize}`,
-    ].join("\n");
+  public displayDetails(): string {
+    return [super.displayDetails(), `File Size: ${this.fileSize}`].join("\n");
   }
   public getPriceWithTax(): number {
     // Override the getPriceWithTax() method to calculate a final price with no tax, since the digital products do not require tax.
@@ -23,10 +20,6 @@ export class DigitalProduct extends Product {
   }
 
   public get fileSize(): string {
-    return `${this._fileSize.toFixed(1)}MB`;
+    return `${this._fileSize.toFixed(1)} MB`;
   }
 }
-
-public displayDetails(): string {
-    return `${this.name} (SKU: ${this.sku}) -$${this.price.toFixed(2)}`;
-  }

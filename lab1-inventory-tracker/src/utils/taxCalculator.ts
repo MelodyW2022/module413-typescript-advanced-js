@@ -1,5 +1,4 @@
-import { PhysicalProduct } from "../models/PhysicalProduct";
-import { Product } from "../types/Product";
+import { Product } from "../models/Product";
 export function calculateTax(product: Product): number {
   return product.getPriceWithTax();
 }

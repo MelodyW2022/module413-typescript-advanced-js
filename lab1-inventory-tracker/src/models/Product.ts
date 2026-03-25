@@ -1,14 +1,15 @@
-export class Product {
+export abstract class Product {
   protected sku: string;
   protected name: string;
   protected price: number;
 
+  //abstract class can have constructor and method that must be implemented by subclasses, but cannot be instantiated directly.
   public constructor(sku: string, name: string, price: number) {
     this.sku = sku;
     this.name = name;
     this.price = price;
   }
-
+  //method with implementation, can be used by subclasses as is or overridden if needed.
   public displayDetails(): string {
     return [
       `SKU: ${this.sku}`,
@@ -16,7 +17,6 @@ export class Product {
       `Price: $${this.price.toFixed(2)}`,
     ].join("\n");
   }
-  public getPriceWithTax(taxRate: number = 0.08): number {
-    return this.price * (1 + taxRate);
-  }
+  //method with no implementation, must be implemented by subclasses.
+  public abstract getPriceWithTax(): number;
 }
