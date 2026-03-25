@@ -3,9 +3,13 @@ import { Product } from "./Product";
 export class PhysicalProduct extends Product {
   private _weight: number;
 
-  public constructor(sku: string, name: string, price: number, weight: number) {
+  constructor(sku: string, name: string, price: number, weight: number) {
     super(sku, name, price);
     this._weight = weight;
+  }
+
+  public displayDetails(): string {
+    return [super.displayDetails(), `Weight: ${this.weight}`].join("\n");
   }
   getPriceWithTax(taxRate: number = 0.1): number {
     //Override the getPriceWithTax() method to calculate a final price that includes a 10% tax rate.

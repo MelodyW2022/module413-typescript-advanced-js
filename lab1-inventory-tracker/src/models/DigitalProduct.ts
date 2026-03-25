@@ -10,6 +10,13 @@ export class DigitalProduct extends Product {
     super(sku, name, price);
     this._fileSize = fileSize;
   }
+
+    public displayDetails(): string {
+    return [
+      super.displayDetails(),
+      `File Size: ${this.fileSize}`,
+    ].join("\n");
+  }
   public getPriceWithTax(): number {
     // Override the getPriceWithTax() method to calculate a final price with no tax, since the digital products do not require tax.
     return this.price;
@@ -19,3 +26,7 @@ export class DigitalProduct extends Product {
     return `${this._fileSize.toFixed(1)}MB`;
   }
 }
+
+public displayDetails(): string {
+    return `${this.name} (SKU: ${this.sku}) -$${this.price.toFixed(2)}`;
+  }
