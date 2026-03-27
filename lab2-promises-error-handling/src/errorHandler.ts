@@ -13,7 +13,7 @@ export class DataError extends Error {
   }
 }
 
-export const errorHandler = (error: unknown) => {
+export const handleError = (error: unknown) => {
   if (error instanceof DataError) {
     console.error("Data Error:", error.message);
   } else if (error instanceof NetworkError) {

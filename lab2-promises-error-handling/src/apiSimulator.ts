@@ -99,7 +99,7 @@ export const fetchProductReviews = (
 // Simulate an API call to fetch sales report
 export const fetchSalesReport = (): Promise<{
   totalSales: number;
-  unitSold: number;
+  unitsSold: number;
   averagePrice: number;
 }> => {
   return new Promise((resolve, reject) => {
@@ -107,13 +107,13 @@ export const fetchSalesReport = (): Promise<{
       setTimeout(() => {
         const salesReport = {
           totalSales: 50000,
-          unitSold: 200,
+          unitsSold: 200,
           averagePrice: 250,
         };
 
         const hasInvalidReport =
           salesReport.totalSales === undefined ||
-          salesReport.unitSold === undefined ||
+          salesReport.unitsSold === undefined ||
           salesReport.averagePrice === undefined;
         if (hasInvalidReport) {
           reject(new DataError("Invalid sales report data"));
