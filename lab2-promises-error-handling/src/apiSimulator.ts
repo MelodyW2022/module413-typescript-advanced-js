@@ -118,11 +118,11 @@ export const fetchSalesReport = (): Promise<{
         if (hasInvalidReport) {
           reject(new DataError("Invalid sales report data"));
         } else {
-            resolve(salesReport);
+          resolve(salesReport);
         }
       }, 1000);
     } else {
-      reject(new NetworkError("Failed to fetch sales report");
+      reject(new NetworkError("Failed to fetch sales report"));
     }
   });
 };
