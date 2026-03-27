@@ -1,3 +1,5 @@
+import { NetworkError, DataError } from "./errorHandler";
+
 // Simulate an API call to fetch product catalog
 export const fetchProductCatalog = (): Promise<
   { id: number; name: string; price: number }[]
@@ -5,12 +7,23 @@ export const fetchProductCatalog = (): Promise<
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (Math.random() < 0.8) {
-        resolve([
+        const products = [
           { id: 1, name: "Laptop", price: 1200 },
           { id: 2, name: "Headphones", price: 200 },
-        ]);
+        ];
+        const hasInvalidProduct = products.some(
+          (product) =>
+            product.id === undefined ||
+            !product.name ||
+            product.price === undefined,
+        );
+        if (hasInvalidProduct) {
+          reject(new DataError("Invalid product product catalog data"));
+        } else {
+          resolve(products);
+        }
       } else {
-        reject("Failed to fetch product catalog");
+        reject(new NetworkError("Failed to fetch product catalog"));
       }
     }, 1000);
   });
@@ -24,8 +37,14 @@ export const fetchProductReviews = (
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (Math.random() < 0.8) {
+        let reviews: {
+          reviewId: number;
+          productId: number;
+          rating: number;
+          comment: string;
+        }[] = [];
         if (productId === 1) {
-          resolve([
+          reviews = [
             {
               reviewId: 1,
               productId: 1,
@@ -38,9 +57,9 @@ export const fetchProductReviews = (
               rating: 4,
               comment: "Very fast and reliable.",
             },
-          ]);
+          ];
         } else if (productId === 2) {
-          resolve([
+          reviews = [
             {
               reviewId: 3,
               productId: 2,
@@ -53,27 +72,57 @@ export const fetchProductReviews = (
               rating: 4,
               comment: "Great value for the price.",
             },
-          ]);
+          ];
+        }
+        const hasInvalidReview = reviews.some(
+          (review) =>
+            review.reviewId === undefined ||
+            review.productId === undefined ||
+            review.rating === undefined ||
+            !review.comment,
+        );
+        if (hasInvalidReview) {
+          reject(new DataError("Invalid product review data"));
         } else {
-          resolve([]);
+          resolve(reviews);
         }
       } else {
-        reject(`Failed to fetch reviews for product ID ${productId}`);
+        reject(
+          new NetworkError(
+            `Failed to fetch reviews for product ID ${productId}`,
+          ),
+        );
       }
     }, 1500);
   });
 };
 // Simulate an API call to fetch sales report
-const fetchSalesReport = (): Promise<
-  { totalSales: number; unitSold: number; averagePrice: number }[]
-> => {
+export const fetchSalesReport = (): Promise<{
+  totalSales: number;
+  unitSold: number;
+  averagePrice: number;
+}> => {
   return new Promise((resolve, reject) => {
     if (Math.random() < 0.8) {
       setTimeout(() => {
-        resolve([{ totalSales: 50000, unitSold: 200, averagePrice: 250 }]);
+        const salesReport = {
+          totalSales: 50000,
+          unitSold: 200,
+          averagePrice: 250,
+        };
+
+        const hasInvalidReport =
+          salesReport.totalSales === undefined ||
+          salesReport.unitSold === undefined ||
+          salesReport.averagePrice === undefined;
+        if (hasInvalidReport) {
+          reject(new DataError("Invalid sales report data"));
+        } else {
+            resolve(salesReport);
+        }
       }, 1000);
     } else {
-      reject("Failed to fetch sales report");
+      reject(new NetworkError("Failed to fetch sales report");
     }
   });
 };
