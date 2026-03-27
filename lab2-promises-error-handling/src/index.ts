@@ -9,23 +9,25 @@ fetchProductCatalog()
     console.log("Product Catalog:");
     products.forEach((product) => {
       console.log(
-        `-ID: ${product.id}, Name: ${product.name}, Price: $${product.price}`,
+        `- ID: ${product.id}, Name: ${product.name}, Price: $${product.price}`,
       );
     });
     const reviewPromises = products.map((product) => {
       return fetchProductReviews(product.id)
         .then((reviews) => {
-          console.log(`\nReviews for ${product.name}:`);
+          console.log(
+            `\nReviews for product ID ${product.id} ${product.name}:`,
+          );
           reviews.forEach((review) => {
             console.log(
-              `-Review ID: ${review.reviewId}, Product ID: ${review.productId},
-              Rating: ${review.rating}, 
-              Comment: ${review.comment}`,
+              `- Review ID: ${review.reviewId}, Product ID: ${review.productId}, Rating: ${review.rating}, Comment: ${review.comment}`,
             );
           });
         })
         .catch((error) => {
-          console.error(`Error fetching reviews for product ID ${product.id}:`);
+          console.error(
+            `Error fetching reviews for product ID ${product.id} ${product.name}:`,
+          );
           handleError(error);
         });
     });
@@ -52,7 +54,5 @@ fetchProductCatalog()
     handleError(error);
   })
   .finally(() => {
-    console.log(
-      "\nFinished fetching product catalog, reviews and sales report.",
-    );
+    console.log("\nFinished attempting all API calls.");
   });

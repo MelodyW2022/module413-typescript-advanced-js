@@ -15,12 +15,12 @@ export class DataError extends Error {
 
 export const handleError = (error: unknown) => {
   if (error instanceof DataError) {
-    console.error("Data Error:", error.message);
+    console.error(`[Data Error]: ${error.message}`);
   } else if (error instanceof NetworkError) {
-    console.error("Network Error:", error.message);
+    console.error(`[Network Error]: ${error.message}`);
   } else if (error instanceof Error) {
-    console.error("General Error:", error.message);
+    console.error(`[Error]: ${error.message}`);
   } else {
-    console.error("Unknown Error:", error);
+    console.error(`[Unknown Error]: ${error}`);
   }
 };
