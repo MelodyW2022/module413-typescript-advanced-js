@@ -4,7 +4,8 @@ import {
   fetchSalesReport,
 } from "./apiSimulator";
 import { handleError } from "./errorHandler";
-fetchProductCatalog()
+import { retryPromise } from "./retryPromise";
+retryPromise(() => fetchProductCatalog(), 3, 500)
   .then((products) => {
     console.log("Product Catalog:");
     products.forEach((product) => {
@@ -13,7 +14,7 @@ fetchProductCatalog()
       );
     });
     const reviewPromises = products.map((product) => {
-      return fetchProductReviews(product.id)
+      return retryPromise(() => fetchProductReviews(product.id), 3, 500)
         .then((reviews) => {
           console.log(
             `\nReviews for product ID ${product.id} ${product.name}:`,
@@ -37,7 +38,7 @@ fetchProductCatalog()
     return Promise.all(reviewPromises);
   })
   .then(() => {
-    return fetchSalesReport()
+    return retryPromise(() => fetchSalesReport(), 3, 500)
       .then((report) => {
         console.log("\nSales Report:");
         console.log(`Total Sales: $${report.totalSales}`);
