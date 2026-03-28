@@ -7,6 +7,7 @@ export function retryPromise<T>(
     fn()
       .then(resolve)
       .catch((error) => {
+        console.log(`Attempt failed. Retries left: ${retries}`);
         if (retries === 0) {
           reject(error);
         } else {
